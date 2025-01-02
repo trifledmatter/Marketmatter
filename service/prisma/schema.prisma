@@ -16,14 +16,26 @@ model Subscriber {
 }
 
 model Marketer {
-  id         String      @id @default(auto()) @map("_id") @db.ObjectId
-  name       String
-  email      String      @unique
-  company    String?
-  bio        String
-  promotions Promotion[]
-  createdAt  DateTime    @default(now())
-  updatedAt  DateTime    @updatedAt
+  id            String         @id @default(auto()) @map("_id") @db.ObjectId
+  name          String
+  email         String         @unique
+  company       String?
+  bio           String
+  promotions    Promotion[]
+  passwordHash  String
+  refreshTokens RefreshToken[]
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @updatedAt
+}
+
+model RefreshToken {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId
+  token      String   @unique
+  marketer   Marketer @relation(fields: [marketerId], references: [id])
+  marketerId String   @db.ObjectId
+  expiresAt  DateTime
+  createdAt  DateTime @default(now())
+  revoked    Boolean  @default(false)
 }
 
 model Promotion {

@@ -3,6 +3,7 @@
   "module": "index.ts",
   "type": "module",
   "scripts": {
+    "service:db": "bun service:db:push && bun service:db:generate",
     "service:db:push": "prisma db push",
     "service:db:watch": "prisma generate --watch",
     "service:db:generate": "prisma generate",
@@ -13,8 +14,14 @@
   },
   "devDependencies": {
     "@prisma/client": "^6.1.0",
+    "@types/bcrypt": "^5.0.2",
     "@types/bun": "latest",
     "@types/chalk": "^2.2.4",
+    "@types/cookie-parser": "^1.4.8",
+    "@types/express-rate-limit": "^6.0.2",
+    "@types/express-validator": "^3.0.2",
+    "@types/jsonwebtoken": "^9.0.7",
+    "@types/morgan": "^1.9.9",
     "prisma": "^6.1.0",
     "ts-node-dev": "^2.0.0"
   },
@@ -23,8 +30,15 @@
   },
   "dependencies": {
     "@types/express": "4.17.21",
+    "bcrypt": "^5.1.1",
     "chalk": "^5.4.1",
+    "cookie-parser": "^1.4.7",
     "dotenv": "^16.4.7",
-    "express": "4.21.2"
+    "express": "4.21.2",
+    "express-async-handler": "^1.2.0",
+    "express-rate-limit": "^7.5.0",
+    "express-validator": "^7.2.1",
+    "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.0"
   }
 }
