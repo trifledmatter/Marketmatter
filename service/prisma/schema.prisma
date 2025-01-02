@@ -1,0 +1,40 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model Subscriber {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  email            String   @unique
+  targetCategories String[]
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
+
+model Marketer {
+  id         String      @id @default(auto()) @map("_id") @db.ObjectId
+  name       String
+  email      String      @unique
+  company    String?
+  bio        String
+  promotions Promotion[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+}
+
+model Promotion {
+  id               String   @id @default(auto()) @map("_id") @db.ObjectId
+  title            String
+  content          String
+  marketer         Marketer @relation(fields: [marketerId], references: [id])
+  marketerId       String   @db.ObjectId
+  targetCategories String[]
+  scheduledAt      DateTime
+  isActive         Boolean  @default(false)
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+}
